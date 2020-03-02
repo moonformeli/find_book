@@ -10,9 +10,13 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "strict": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "baseUrl": "./",
     "typeRoots": ["./node_modules/@types", "./src/typings"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "esModuleInterop": true
   },
   "include": ["./src/**/*"],
