@@ -5,28 +5,28 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import BookForm from './components/Book/BookForm';
-import styles from './index.css';
+import BookList from './components/Book/BookList';
+import styles from './index.scss';
+import { IBook } from './models/Book/interfaces/IBook';
 
 const App: React.FC = () => {
-  const [displayItems, setDisplayItems] = useState([]);
+  const [displayItems, setDisplayItems] = useState<IBook>(null!);
 
   return (
     <section>
       <h1 className={styles.title}>Hello Wepack!</h1>
       <BookForm
         onSearch={async value => {
-          const d = await axios.get(
+          const d = await axios.get<IBook>(
             `https://www.googleapis.com/books/v1/volumes?q=${value}&key=AIzaSyDZ71VzRW5oKBMhvC0UZNr-Q4UfezyeAnA&maxResults=30`
           );
           console.dir(d);
+
+          setDisplayItems(d.data);
         }}
       />
       <article>
-        <ul>
-          {/* {displayItems.map(item => {
-            return <li key={item.id}></li>
-          })} */}
-        </ul>
+        <BookList books={displayItems?.items} />
       </article>
     </section>
   );

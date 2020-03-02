@@ -24,17 +24,18 @@ module.exports = {
         use: ['ts-loader']
       },
       {
-        test: /\.css$/,
+        test: /\.s?(a|c)ss$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[local]'
+                localIdentName: '[local]_[folder]_[hash:base64:5]'
               }
             }
-          }
+          },
+          'sass-loader'
         ]
       },
       {
@@ -45,7 +46,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public', 'index.html')
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      inject: false
     })
   ]
 };
