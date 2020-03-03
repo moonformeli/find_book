@@ -14,7 +14,7 @@ export default class BaseQuery {
       protocol: 'https',
       hostname: 'www.googleapis.com',
       pathname: this.path,
-      search: `?${params.search}&key=AIzaSyDZ71VzRW5oKBMhvC0UZNr-Q4UfezyeAnA`
+      search: `?${params.search}&key=`
     });
   }
 }
