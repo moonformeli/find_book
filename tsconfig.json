@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "experimentalDecorators": true,
-    "typeRoots": ["./node_modules/@types", "./src/typings"],
+    "typeRoots": ["node_modules/@types", "./src/typings"],
     "esModuleInterop": true
   },
   "include": ["./src/**/*"],

@@ -8,12 +8,12 @@ import ReactDOM from 'react-dom';
 import BookForm from './components/Book/BookForm';
 import BookList from './components/Book/BookList';
 import styles from './index.scss';
-import { IBook } from './models/Book/interfaces/IBook';
+import { IBookInterface } from './models/Book/interfaces/IBookInterface';
 import BookStore, { BookStoreCtx } from './stores/BookStore';
 
 const App: React.FC = observer(() => {
   const store = useRef(new BookStore()).current;
-  const [displayItems, setDisplayItems] = useState<IBook>(store.Book);
+  const [displayItems, setDisplayItems] = useState<IBookInterface>(store.Book);
 
   const scrollRef = useBottomScrollListener(() => store.onLoadBook());
 

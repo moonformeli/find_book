@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IBookItem } from '../../models/Book/interfaces/IBook';
+import { IBookItem } from '../../models/Book/interfaces/IBookInterface';
 import styles from './BookList.scss';
 
 interface IBookListProps {

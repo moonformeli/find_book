@@ -31,7 +31,7 @@ export interface IAccessInfo {
 
 export interface IVolumeInfo {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   authors?: string[];
   publisher: string;
   publishedDate: string;
@@ -45,7 +45,7 @@ export interface IVolumeInfo {
     image: boolean;
   };
   pageCount: number;
-  printedPageCount: number;
+  printedPageCount?: number;
   printType: string;
   categories: string[];
   maturityRating: string;
@@ -71,7 +71,7 @@ export interface IVolumeInfo {
 
 export interface IBookItem {
   kind: string;
-  id: string;
+  id?: string;
   etag: string;
   selfLink: string;
   volumeInfo: IVolumeInfo;
@@ -79,7 +79,7 @@ export interface IBookItem {
   accessInfo: IAccessInfo;
 }
 
-export interface IBook {
+export interface IBookInterface {
   kind: string;
   totalItems: number;
   items: IBookItem[];

@@ -9,11 +9,11 @@ export default class BaseController<
     super();
   }
 
-  protected async call<T>(config: ILunaRequest) {
+  protected async call<T>(JSC: Record<string, any>, config: ILunaRequest) {
     const method = config.method?.toUpperCase() || '';
 
     if (method === 'GET') {
-      return await this.get<T>({ ...config });
+      return await this.get<T>(JSC, { ...config });
     }
     return Promise.reject();
   }

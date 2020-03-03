@@ -2,6 +2,7 @@ import axios from 'axios';
 import HttpStatusCodes from 'http-status-codes';
 
 import AxiosEither from '../../service/AxiosEither';
+import { validate } from '../../utils/validate';
 import { ILunaRequest } from './interfaces/ILunaRequest';
 
 export default class AxiosController {
@@ -12,11 +13,12 @@ export default class AxiosController {
     );
   }
 
-  protected async get<T>(config: ILunaRequest) {
+  protected async get<T>(JSC: Record<string, any>, config: ILunaRequest) {
     const { url = '' } = config;
 
     try {
       const res = await axios.get<T>(url, config);
+      const valid = validate(JSC, res.data);
 
       if (!res) {
         throw new Error('Unknown Error');
@@ -27,6 +29,9 @@ export default class AxiosController {
           status: res.status,
           statusText: res.statusText
         });
+      }
+      if (!!valid.error) {
+        throw new Error(JSON.stringify(valid.error, null, 2));
       }
 
       return AxiosEither.right<T>({

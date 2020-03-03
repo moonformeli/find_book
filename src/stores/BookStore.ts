@@ -3,11 +3,11 @@ import { createContext } from 'react';
 
 import BookController from '../models/Book/BookController';
 import BookQuery from '../models/Book/BookQuery';
-import { IBook } from '../models/Book/interfaces/IBook';
+import { IBookInterface } from '../models/Book/interfaces/IBookInterface';
 import { IBookReq } from '../models/Book/interfaces/IBookReq';
 
 export default class BookStore {
-  @observable book: IBook = { kind: '', totalItems: 0, items: [] };
+  @observable book: IBookInterface = { kind: '', totalItems: 0, items: [] };
   @observable params: IBookReq = { title: '' };
 
   private isLoading: boolean = false;
@@ -61,7 +61,7 @@ export default class BookStore {
       maxResults: this.maxResults,
       startIndex: this.startIndex
     });
-    const book = res.caseOf<null, IBook>({
+    const book = res.caseOf<null, IBookInterface>({
       left: () => null,
       right: r => r.data
     });
