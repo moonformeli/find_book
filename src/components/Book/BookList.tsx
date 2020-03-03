@@ -14,9 +14,9 @@ const BookList: React.FC<IBookListProps> = ({ books }) => {
 
   return (
     <ul className={styles.container}>
-      {books.map(item => {
+      {books.map((item, i) => {
         return (
-          <li key={item.id}>
+          <li key={i}>
             <a
               className={styles.anchor}
               href={item.volumeInfo.previewLink}

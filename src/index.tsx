@@ -1,35 +1,34 @@
 import 'antd/dist/antd.css';
 
-import axios from 'axios';
-import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import BookForm from './components/Book/BookForm';
 import BookList from './components/Book/BookList';
 import styles from './index.scss';
 import { IBook } from './models/Book/interfaces/IBook';
+import BookStore, { BookStoreCtx } from './stores/BookStore';
 
-const App: React.FC = () => {
-  const [displayItems, setDisplayItems] = useState<IBook>(null!);
+const App: React.FC = observer(() => {
+  const store = useRef(new BookStore()).current;
+  const [displayItems, setDisplayItems] = useState<IBook>(store.Book);
 
   return (
-    <section>
-      <h1 className={styles.title}>Hello Wepack!</h1>
-      <BookForm
-        onSearch={async value => {
-          const d = await axios.get<IBook>(
-            `https://www.googleapis.com/books/v1/volumes?q=${value}&key=AIzaSyDZ71VzRW5oKBMhvC0UZNr-Q4UfezyeAnA&maxResults=30`
-          );
-          console.dir(d);
-
-          setDisplayItems(d.data);
-        }}
-      />
-      <article>
-        <BookList books={displayItems?.items} />
-      </article>
-    </section>
+    <BookStoreCtx.Provider value={store}>
+      <section>
+        <h1 className={styles.title}>Hello Wepack!</h1>
+        <BookForm
+          onSearch={() => {
+            setDisplayItems(store.Book);
+          }}
+        />
+        <article>
+          <BookList books={displayItems.items} />
+        </article>
+      </section>
+    </BookStoreCtx.Provider>
   );
-};
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));

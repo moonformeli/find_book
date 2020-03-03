@@ -7,18 +7,16 @@
     "jsx": "react",
     "outDir": "./dist",
     "rootDir": "./",
-    "isolatedModules": true,
+    "isolatedModules": false,
     "resolveJsonModule": true,
     "strict": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
     "baseUrl": "./",
+    "experimentalDecorators": true,
     "typeRoots": ["./node_modules/@types", "./src/typings"],
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "esModuleInterop": true
   },
   "include": ["./src/**/*"],
-  "exclude": ["./node_modules/**/*"]
+  "exclude": ["node_modules", "!node_modules/@types"]
 }
