@@ -1,3 +1,6 @@
-.title {
-  color: pink;
+.container {
+  height: 50rem;
+  max-height: 50rem;
+  border: 0.1rem solid red;
+  overflow: scroll;
 }

@@ -2,6 +2,7 @@ import 'antd/dist/antd.css';
 
 import { observer } from 'mobx-react-lite';
 import React, { useRef, useState } from 'react';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import ReactDOM from 'react-dom';
 
 import BookForm from './components/Book/BookForm';
@@ -14,10 +15,11 @@ const App: React.FC = observer(() => {
   const store = useRef(new BookStore()).current;
   const [displayItems, setDisplayItems] = useState<IBook>(store.Book);
 
+  const scrollRef = useBottomScrollListener(() => store.onLoadBook());
+
   return (
     <BookStoreCtx.Provider value={store}>
-      <section>
-        <h1 className={styles.title}>Hello Wepack!</h1>
+      <section className={styles.container} ref={scrollRef}>
         <BookForm
           onSearch={() => {
             setDisplayItems(store.Book);

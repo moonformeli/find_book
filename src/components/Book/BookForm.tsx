@@ -1,6 +1,6 @@
 import { Input } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import BookStore, { BookStoreCtx } from '../../stores/BookStore';
 
@@ -12,18 +12,11 @@ interface IBookFormProps {
 
 const BookForm: React.FC<IBookFormProps> = ({ onSearch = () => {} }) => {
   const store = useContext<BookStore>(BookStoreCtx);
-  const [inauthor, setInauthor] = useState('');
-  const [isbn, setIsbn] = useState('');
-  const [inpublisher, setInpublisher] = useState('');
 
   const onSearchBook = async (title: string): Promise<void> => {
     store.resetParams();
-    await store.onLoadBook({
-      title,
-      ...(inauthor && { inauthor }),
-      ...(isbn && { isbn }),
-      ...(inpublisher && { inpublisher })
-    });
+    store.Title = title;
+    await store.onLoadBook();
     onSearch?.();
   };
 
@@ -38,17 +31,20 @@ const BookForm: React.FC<IBookFormProps> = ({ onSearch = () => {} }) => {
       <div>
         <Input
           placeholder="Author"
-          onChange={e => setInauthor(e.target.value)}
+          onChange={e => (store.Author = e.target.value)}
         />
       </div>
       <div>
         <Input
           placeholder="Publisher"
-          onChange={e => setInpublisher(e.target.value)}
+          onChange={e => (store.Publisher = e.target.value)}
         />
       </div>
       <div>
-        <Input placeholder="ISBN" onChange={e => setIsbn(e.target.value)} />
+        <Input
+          placeholder="ISBN"
+          onChange={e => (store.ISBN = e.target.value)}
+        />
       </div>
     </div>
   );

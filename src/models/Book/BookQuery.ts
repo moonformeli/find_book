@@ -18,6 +18,14 @@ export default class BookQuery extends BaseQuery {
       query += `+isbn:${params.isbn}`;
     }
 
+    if (params.startIndex) {
+      query += `&startIndex=${params.startIndex}`;
+    }
+
+    if (params.maxResults) {
+      query += `&maxResults=${params.maxResults}`;
+    }
+
     return this.getAPIPath({ search: query });
   }
 }
